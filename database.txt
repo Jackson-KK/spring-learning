@@ -1,0 +1,36 @@
+CREATE TABLE skin_video(
+    id INT NOT NULL PRIMARY KEY,
+    video VARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE skin_to_question(
+    skinId INT NOT NULL,
+    questionId INT NOT NULL,
+    question VARCHAR(100) NOT NULL,
+    questionPopUpSec INT NOT NULL,
+    answerId INT NOT NULL,
+    FOREIGN KEY (skinId) REFERENCES skin_video(id),
+    FOREIGN KEY (questionId, answerId) REFERENCES question_to_option(questionId, optionId),
+    PRIMARY KEY (skinId, questionId)
+);
+
+CREATE TABLE question_to_option(
+    questionId INT NOT NULL,
+    optionId INT NOT NULL,
+    optionBody VARCHAR(100) NOT NULL,
+    PRIMARY KEY (questionId, optionId)
+);
+
+CREATE TABLE skin_question(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    skinId INT NOT NULL,
+    question VARCHAR(100) NOT NULL,
+    options VARCHAR(200) NOT NULL,
+    answer SMALLINT NOT NULL,
+    popUpSec INT NOT NULL,
+    x DOUBLE,
+    y DOUBLE,
+    createTime TIMESTAMP NOT NULL,
+    updateTime TIMESTAMP NOT NULL
+);
